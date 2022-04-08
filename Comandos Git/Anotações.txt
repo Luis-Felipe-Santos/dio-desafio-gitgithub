@@ -1,0 +1,111 @@
+- git config
+
+A primeira coisa que você deve fazer quando instalar o Git é definir o seu nome de usuário e endereço de e-mail. Isso é importante porque todos os commits no Git utilizam essas informações, e está imutavelmente anexado nos commits que você realiza:
+
+git config --global user.name "John Doe"
+git config --global user.email johndoe@example.com
+
+- git help 
+
+Se você precisar de ajuda ao usar Git, existem três maneiras de obter a ajuda para qualquer um dos comandos Git:
+
+git help {comando}
+git {comando} --help
+man git- {comando}
+
+- git init
+
+Caso você esteja iniciando o monitoramento de um projeto existente com Git, você precisa ir para o diretório do projeto e digitar
+
+- git init
+
+Isso cria um novo subdiretório chamado .git que contem todos os arquivos necessários de seu repositório — um esqueleto de repositório Git. Neste ponto, nada em seu projeto é monitorado.
+
+- git clone
+
+Você clona um repositório com git clone [url]. Por exemplo, caso você queria clonar a biblioteca Git do Ruby chamada Grit, você pode fazê-lo da seguinte forma:
+
+git clone git://github.com/schacon/grit.git
+
+Se você entrar no novo diretório grit, você verá todos os arquivos do projeto nele, pronto para serem editados ou utilizados. Caso você queira clonar o repositório em um diretório diferente de grit, é possível especificar esse diretório utilizando a opção abaixo:
+
+git clone git://github.com/schacon/grit.git mygrit
+
+- git add
+
+Para passar a monitorar um novo arquivo, use o comando git add. Para monitorar o arquivo README, você pode rodar isso:
+
+git add README
+
+- git status
+
+A principal ferramenta utilizada para determinar quais arquivos estão em quais estados é o comando:
+
+git status
+
+- git commit 
+
+Armazena o conteúdo atual do índice em um novo commit, juntamente com uma mensagem de registro do usuário que descreve as mudanças.
+Se usa o commit depois de já ter feito o git add, para fazer o commit:
+
+git commit -m "Mensagem"
+Para commitar também os arquivos versionados mesmo não estando no Stage basta adicionar o parâmetro -a
+
+git commit -a -m "Mensagem"
+Refazendo commit quando esquecer de adicionar um arquivo no Stage:
+
+git commit -m "Mensagem" --amend
+
+- git rm
+
+Para remover um arquivo do Git, você tem que removê-lo dos arquivos que estão sendo monitorados (mais precisamente, removê-lo da sua área de seleção) e então fazer o commit. O comando git rm faz isso e também remove o arquivo do seu diretório para você não ver ele como arquivo não monitorado (untracked file) na próxima vez.
+
+git rm -f {arquivo}
+
+- git mv 
+
+Diferente de muitos sistemas VCS, o Git não monitora explicitamente arquivos movidos.
+É um pouco confuso que o Git tenha um comando mv. Se você quiser renomear um arquivo no Git, você pode fazer isso com
+
+git mv arquivo_origem arquivo_destino
+e funciona. De fato, se você fizer algo desse tipo e consultar o status, você verá que o Git considera que o arquivo foi renomeado.
+
+No entanto, isso é equivalente a rodar algo como:
+
+mv README.txt README
+git rm README.txt
+git add README
+O Git descobre que o arquivo foi renomeado implicitamente, então ele não se importa se você renomeou por este caminho ou com o comando mv. A única diferença real é que o comando mv é mais conveniente, executa três passos de uma vez. O mais importante, você pode usar qualquer ferramenta para renomear um arquivo, e usar add/rm depois, antes de consolidar com o commit.
+
+- git branch
+
+Um branch no Git é simplesmente um leve ponteiro móvel para um dos commits. O nome do branch padrão no Git é master. Como você inicialmente fez commits, você tem um branch principal (master branch) que aponta para o último commit que você fez. Cada vez que você faz um commit ele avança automaticamente.
+O que acontece se você criar um novo branch? Bem, isso cria um novo ponteiro para que você possa se mover. Vamos dizer que você crie um novo branch chamado testing. Você faz isso com o comando git branch:
+
+git branch testing
+
+- git checkout 
+
+Com o git checkout você pode mudar de branch, caso a branch ainda não exista você poderá passar o parâmetro -b para criar.
+
+git checkout -b {nome_da_branch}
+
+- git merge
+
+Suponha que você decidiu que o trabalho na tarefa #53 está completo e pronto para ser feito o merge no branch master. Para fazer isso, você fará o merge do seu branch iss53, bem como o merge do branch hotfix de antes. Tudo que você tem a fazer é executar o checkout do branch para onde deseja fazer o merge e então rodar o comando git merge:
+
+git checkout master
+git merge iss53
+
+- git pull
+
+Incorpora as alterações de um repositório remoto no branch atual. Em seu modo padrão, git pull é uma abreviação para git fetch seguido de git merge FETCH_HEAD. Por exemplo, se eu estiver em uma branch chamada develop e quiser atualizar caso haja atualizações remotamente:
+
+git pull origin develop
+
+- git push
+
+O git push é o comando em que você transfere commits a partir do seu repositório local para um repositório remoto. É a contrapartida do git fetch, que busca importações e comprometem as agências locais, utilizando o git push as exportações comprometem as filiais remotas. Para fazer isso, você executa git push [nome_do_repositório_remoto] [nome_da_sua_branch_local], que vai tentar fazer que o [nome_do_repositório_remoto] receba a sua branch [nome_da_sua_branch_local] contendo todos seus commits com alterações. Por exemplo:
+
+git push origin develop
+
